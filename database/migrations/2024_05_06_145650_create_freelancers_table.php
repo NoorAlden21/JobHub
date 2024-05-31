@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->decimal('hourly_wage')->nullable();
-            $table->string('residence')->nullable();
+            $table->foreignId('country_id')->constrained('countries');
             $table->enum('gender',['male','female']);
             $table->integer('total_jobs')->nullable();
             $table->integer('total_hours')->nullable();
