@@ -27,7 +27,7 @@ class StoreFreelancerRequest extends FormRequest
             // 'password' => ['required','confirmed','min:6'],
             'title' => ['required','string','max:30'],
             'description' => ['required','string','min:15'],
-            'residence' => ['required','string'],
+            //'country_id' => ['required','exists:countries,id'],
             'hourly_wage' => ['required','numeric','min:3'],
             'skills' => ['required','array','distinct'],
             'skill.*.skill_id' => ['required','exists:skills,id','distinct'],
