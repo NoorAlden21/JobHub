@@ -28,7 +28,8 @@ class StoreCompanyRequest extends FormRequest
             'website' => 'required|url|max:255',
             'location' => 'required|string|max:255',
             'description' => 'required|string',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'country_id'=>'required'
         ];
     }
 }

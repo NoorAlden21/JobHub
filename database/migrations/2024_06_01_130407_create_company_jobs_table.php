@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('company_jobs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('owner_id')->constrained('companies')->cascadeOnDelete();
-            $table->string('title');// حسب ال title رح نقطرح skill
+            $table->string('title');
+            $table->text('description')->nullable();
             $table->string('skills')->nullable();
-            $table->enum('scope',['small','medium','large'])->nullable();// شو الشغل يلي عم نشتغله اديش مدى ضخامته
+            $table->enum('scope',['small','medium','large'])->nullable();
             $table->enum('price_type',['hourly', 'fixed']);
-            $table->decimal('hourly_rate_min', 10, 2)->nullable(); // تحديد حجم للرقم العشري
+            $table->decimal('hourly_rate_min', 10, 2)->nullable();
             $table->decimal('hourly_rate_max', 10, 2)->nullable();
             $table->decimal('fixed_rate', 10, 2)->nullable();
+            $table->date('deadline')->nullable();
 
             $table->index('price_type');
             $table->index('scope');
