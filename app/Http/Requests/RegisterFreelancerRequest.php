@@ -25,6 +25,7 @@ class RegisterFreelancerRequest extends FormRequest
             'name' => ['required','string','unique:freelancers,name'],
             'email' => ['required','email','unique:freelancers,email'],
             'password' => ['required','min:6','confirmed'],
+            'country_id' => ['required','exists:countries,id']
         ];
     }
 }

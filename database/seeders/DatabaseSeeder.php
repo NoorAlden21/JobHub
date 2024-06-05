@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
             SpecializationSeeder::class,
             CategorySeeder::class,
             SkillSeeder::class,
+            CountrySeeder::class,
             FreelancerSeeder::class,
-            CountrySeeder::class
         ]);
     }
 }

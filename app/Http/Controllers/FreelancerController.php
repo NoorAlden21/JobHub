@@ -159,7 +159,7 @@ class FreelancerController extends Controller
             $validated = $request->validated();
             DB::beginTransaction();
             if($request->hasFile('photo')){
-                $photo = $this->uploadPhoto($request,'photos');
+                $photo = $this->uploadPhoto($request,'photos','freelancers');
                 $freelancer->photo()->create([
                     'name' => $photo
                 ]);
