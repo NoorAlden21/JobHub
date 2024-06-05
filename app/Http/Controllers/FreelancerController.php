@@ -45,7 +45,7 @@ class FreelancerController extends Controller
     //         unset($validated['skills']);
     //         unset($validated['photo']);
     //         DB::beginTransaction();
-    //         $freelancer = Freelancer::create($validated); 
+    //         $freelancer = Freelancer::create($validated);
     //         //First Approach
     //         // "skills":[
     //         //     {
@@ -56,7 +56,7 @@ class FreelancerController extends Controller
     //         foreach($skills as $skill){
     //             FreelancerSkill::create([
     //                 'freelancer_id' => $freelancer->id,
-    //                 'skill_id' => $skill['skill_id'] 
+    //                 'skill_id' => $skill['skill_id']
     //             ]);
     //         }
     //         //Second Approach
@@ -159,7 +159,7 @@ class FreelancerController extends Controller
             $validated = $request->validated();
             DB::beginTransaction();
             if($request->hasFile('photo')){
-                $photo = $this->uploadPhoto($request,'photos');
+                $photo = $this->uploadPhoto($request,'photos','freelancers');
                 $freelancer->photo()->create([
                     'name' => $photo
                 ]);
@@ -178,7 +178,7 @@ class FreelancerController extends Controller
             foreach($skills as $skill){
                 FreelancerSkill::create([
                     'freelancer_id' => $freelancer->id,
-                    'skill_id' => $skill['skill_id'] 
+                    'skill_id' => $skill['skill_id']
                 ]);
             }
             $favoriteCategories = $validated['favorite_categories'];
@@ -186,7 +186,7 @@ class FreelancerController extends Controller
             foreach($favoriteCategories as $category){
                 FreelancerFavoriteCategories::create([
                     'freelancer_id' => $freelancer->id,
-                    'category_id' => $category['category_id'] 
+                    'category_id' => $category['category_id']
                 ]);
             }
             $freelancer->update($validated);
@@ -259,7 +259,7 @@ class FreelancerController extends Controller
             }
             if($freelancer->applications->where('job_id',$job->id)->isNotEmpty()){
                 return response()->json([
-                    'message' => "you have already applied to this job!" 
+                    'message' => "you have already applied to this job!"
                 ],400);
             }
             DB::beginTransaction();
@@ -274,7 +274,7 @@ class FreelancerController extends Controller
             DB::commit();
             Mail::to($job->owner)->send(new newApplicationMail($freelancer,$job));
             return response()->json([
-                'message' => "you've applied to this job" 
+                'message' => "you've applied to this job"
             ],200);
         }catch(\Exception $e){
             DB::rollBack();
@@ -290,7 +290,7 @@ class FreelancerController extends Controller
             $applications = $freelancer->applications;
             $jobs = [];
             foreach($applications as $application){
-                $jobs[]=[$application->job]; 
+                $jobs[]=[$application->job];
             }
             return response()->json([
                 'applications' => $jobs
@@ -354,7 +354,7 @@ class FreelancerController extends Controller
                 'rating' => $request->rating
             ]);
             $ratings = $freelancer->ratings;
-            $rat = 0; 
+            $rat = 0;
             foreach($ratings as $rating){
                 $rat += $rating['rating'];
             }
@@ -372,15 +372,15 @@ class FreelancerController extends Controller
             ],500);
         }
     }
-    
+
     // public function sendCode(){
-    //     $freelancer = Freelancer:: 
+    //     $freelancer = Freelancer::
     //     $code = mt_rand(100000,999999);
     //     Code::create([
     //         'code' => $code,
     //     ]);
     // }
-    
+
     public function index()
     {
         //
